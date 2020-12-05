@@ -1,0 +1,21 @@
+.nav.nav-tabs {
+    .nav-item.nav-link {
+        border-color: #e9ecef #e9ecef #dee2e6;
+        color: white;
+
+        &:hover:not(.active) {
+            background-color: #2b3546;
+        }
+
+        &.active {
+            background-color: #3d4a63;
+        }
+    }
+}
+
+.tab-content .tab-pane {
+    background-color: #3d4a63;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
