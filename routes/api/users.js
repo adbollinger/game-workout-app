@@ -8,15 +8,15 @@ const User = require('../../models/User');
 router.get('/', (req, res) => {
     User.find()
         .sort({name: -1})
-        .then(items => res.json(items));
+        .then(users => res.json(users));
 }); 
 
 // @route GET api/users/:name
-// @desc Get all users
+// @desc Get a specific user
 router.get('/:name', (req, res) => {
     User.findOne({name: req.params.name})
         .sort({name: -1})
-        .then(items => res.json(items));
+        .then(user => res.json(user));
 }); 
 
 // @route POST api/users

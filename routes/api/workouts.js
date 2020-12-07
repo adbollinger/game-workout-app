@@ -12,13 +12,9 @@ router.patch('/', (req, res) => {
             situps: req.body.situps, 
             squats: req.body.squats
         }
-    }, { new: true }, (err, doc) => {
-        if (err)
-            console.log("Error updating workout");
-
-        return doc
-    })
-    .then(user => res.json(user));
+    }, { new: true })
+    .then(user => res.json(user))
+    .catch(err => res.json({ err }));
 });
 
 module.exports = router;
