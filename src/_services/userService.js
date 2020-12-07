@@ -3,16 +3,18 @@ export const userService = {
     logout,
     getAll,
     getById,
+    addUser,
+    updateWorkout
 };
 
-const baseUrl = 'http://localhost:4000';
+const baseUrl = 'http://localhost:4000/api';
 
 function login(username) {
     /*
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ username })
     };
 
     return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
@@ -49,6 +51,28 @@ function getById(id) {
     };
 
     return fetch(`${baseUrl}/users/${id}`, requestOptions).then(handleResponse);
+}
+
+function addUser(user) {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+        //headers: authHeader()
+    };
+
+    return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
+}
+
+function updateWorkout(user) {
+    const requestOptions = {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+        //headers: authHeader()
+    };
+
+    return fetch(`${baseUrl}/workouts`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

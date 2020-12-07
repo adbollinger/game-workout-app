@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userActions } from '../../_actions';
 
+import Table from 'react-bootstrap/Table';
+
+import '../../styles/table.scss';
+
 class Leaderboard extends Component {
     static propTypes = {
         getUsers: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
+        users: PropTypes.object.isRequired
     }
 
     componentDidMount() {
@@ -14,21 +18,36 @@ class Leaderboard extends Component {
     }
 
     render() {
-        const { users } = this.props.user;
-        console.log(users);
+        const { users } = this.props.users;
         return (
             <div>
-                <h1>Account page</h1>
                 <div className="users">
                     {
-                        users.map(({ name, pushups, situps, squats }) => (
-                            <div className="user">
-                                <span>{name}</span>
-                                <span>{pushups}</span>
-                                <span>{situps}</span>
-                                <span>{squats}</span>
-                            </div>
-                        ))
+                        <React.Fragment>
+                            {users && users.loading && <em> Loading </em>}
+                            {users &&
+                                <Table striped bordered hover>
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Pushups</th>
+                                            <th>Situps</th>
+                                            <th>Squats</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {users.map(({_id, name, pushups, situps, squats}) => (
+                                            <tr className="user" key={_id}>
+                                                <td>{name}</td>
+                                                <td>{pushups}</td>
+                                                <td>{situps}</td>
+                                                <td>{squats}</td>
+                                            </tr>
+                                        ))}
+                                </tbody>
+                                </Table>
+                            }
+                        </React.Fragment>
                     }
                 </div>
             </div>

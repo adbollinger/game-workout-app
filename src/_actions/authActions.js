@@ -25,7 +25,7 @@ function login(username) {
     return success(userService.login(username));
 
     function success(user) { return { type: authConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
+    //function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
 
 function logout() {

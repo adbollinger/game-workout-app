@@ -9,6 +9,11 @@ import { authActions } from '../../_actions';
 import { connect } from 'react-redux';
 
 class Login extends Component {
+    static propTypes = {
+        login: PropTypes.func.isRequired,
+        user: PropTypes.object.isRequired
+    }
+
     constructor() {
         super();
         this.state = {

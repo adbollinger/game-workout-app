@@ -10,7 +10,7 @@ import '../styles/navbar.scss';
 
 
 import WorkoutModal from './WorkoutModal';
-import { authActions } from '../_actions';
+import { authActions, userActions } from '../_actions';
 
 class Navbar extends Component {
     static propTypes = {
@@ -20,17 +20,33 @@ class Navbar extends Component {
     constructor() {
         super();
         this.state = {
-            showWorkoutModal: false
+            showWorkoutModal: false,
+            //results: null
         }
     }
 
     handleWorkoutModalClose() {
-        this.setState({ showWorkoutModal: false });
+        this.setState({
+            showWorkoutModal: false,
+            results: null
+        });
     }
 
     handleWorkoutModalSubmit(results) {
-        console.log(results);
-        // Handle the submit?
+        const { user } = this.props;
+
+        const values = {
+            pushups: -results.pushups,
+            situps: -results.situps,
+            squats: -results.squats,
+            name: user
+        };
+
+        this.props.updateWorkout(values);
+
+        /*this.setState({
+            results: this.props.users.user
+        });*/
     }
 
     handleLogout() {
@@ -38,11 +54,16 @@ class Navbar extends Component {
     }
 
     renderRightSide() {
-        if (this.props.user == null || this.props.user == '') {
+        if (this.props.user === null || this.props.user === '') {
             return (
-                <Nav.Item>
-                    <Nav.Link href="/account/login">Login</Nav.Link>
-                </Nav.Item>
+                <React.Fragment>
+                    <Nav.Item>
+                        <Nav.Link href="/account/login">Login</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href="/account/create">Create account</Nav.Link>
+                    </Nav.Item>
+                </React.Fragment>
             )
         } else {
             return (
@@ -59,7 +80,7 @@ class Navbar extends Component {
     }
 
     handleSelect(key) {
-        if (key == 'logout') {
+        if (key === 'logout') {
             this.handleLogout();
         }
     }
@@ -81,7 +102,7 @@ class Navbar extends Component {
                     <div className="flex-grow-1"></div>
                     {this.renderRightSide()}
                 </Nav>
-                <WorkoutModal showModal={this.state.showWorkoutModal} handleClose={this.handleWorkoutModalClose.bind(this)} handleSubmit={this.handleWorkoutModalSubmit.bind(this)} />
+                <WorkoutModal showModal={this.state.showWorkoutModal} results={this.props.users.user} handleClose={this.handleWorkoutModalClose.bind(this)} handleSubmit={this.handleWorkoutModalSubmit.bind(this)} />
             </div>
         )
     }
@@ -94,7 +115,8 @@ const mapStateToProps = (state) => {
 };
 
 const actions = {
-    logout: authActions.logout
+    logout: authActions.logout,
+    updateWorkout: userActions.updateWorkout
 }
 
 export default connect(mapStateToProps, actions)(Navbar);
