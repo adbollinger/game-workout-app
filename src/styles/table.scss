@@ -1,7 +1,9 @@
-.table{
-    color: white;
+@import 'variables';
+
+table.table{
+    color: $app-text;
 
     tr:hover td {
-        color: white;
+        color: $app-text;
     }
 }

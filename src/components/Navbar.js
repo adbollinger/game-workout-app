@@ -6,8 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
-import '../styles/navbar.scss';
-
 
 import WorkoutModal from './WorkoutModal';
 import { authActions, userActions } from '../_actions';

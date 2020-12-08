@@ -1,0 +1,17 @@
+@import "variables";
+
+.btn {
+    &.btn-primary {
+        background-color: $app-primary;
+        border-color: $app-primary;
+        color: #000;
+        font-weight: 600;
+
+        &:hover {
+            background-color: $app-primary-hover;
+            border-color: $app-primary-hover;
+            color: #000; 
+            font-weight: 600;
+        }
+    }
+}

@@ -45,7 +45,7 @@ class Login extends Component {
         return (
             <div>
                 <h1>Login</h1>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit} className="card-view">
                     <InputGroup className="mb-3">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="name">Name</InputGroup.Text>

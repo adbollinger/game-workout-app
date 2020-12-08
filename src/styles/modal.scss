@@ -1,8 +1,10 @@
-.modal-content {
-    background-color: #282c34;
-    color: white;
+@import 'variables';
+
+.modal-dialog .modal-content {
+    background-color: $app-default-background;
+    color: $app-text;
     
     .close {
-        color: white;
+        color: $app-text;
     }
 }

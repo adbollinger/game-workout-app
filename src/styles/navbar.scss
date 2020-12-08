@@ -1,7 +1,23 @@
+@import "variables";
+
 .App-navbar {
     min-height: 50px;
-    background-color: rgb(32,35,42);
-    a {
-        color: rgb(144,145,132);
+    background-color: $app-default-background;
+    .nav-item {
+        a {
+            color: $app-text-bright;
+
+            &:hover {
+                color: $app-primary;
+            }
+        }
+
+        .dropdown-menu {
+            background-color: $app-default-background;
+
+            .dropdown-item:hover {
+                background-color: $app-default-background;
+            }
+        }
     }
 }

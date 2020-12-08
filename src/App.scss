@@ -1,0 +1,24 @@
+@import 'styles/variables';
+@import 'styles/forms';
+@import 'styles/modal';
+@import 'styles/navbar';
+@import 'styles/table';
+@import 'styles/tabs';
+@import 'styles/buttons';
+@import 'styles/inputs';
+
+.App {
+  text-align: center;
+}
+
+.App-body {
+  padding-top: 2rem;
+  background-color: #121212;
+  min-height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgba(255, 255, 255, 0.6);
+}

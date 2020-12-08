@@ -5,8 +5,6 @@ import { userActions } from '../../_actions';
 
 import Table from 'react-bootstrap/Table';
 
-import '../../styles/table.scss';
-
 class Leaderboard extends Component {
     static propTypes = {
         getUsers: PropTypes.func.isRequired,

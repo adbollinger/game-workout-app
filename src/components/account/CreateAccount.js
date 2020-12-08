@@ -47,7 +47,7 @@ class CreateAccount extends Component {
     render() {
         return (
             <div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit} className="card-view">
                     <Form.Group controlId="name">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="text" name="name" placeholder="Enter name" value={this.state.name} onChange={this.handleInputChange} />

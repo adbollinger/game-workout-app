@@ -13,16 +13,9 @@ class TabsView extends Component {
         prop: PropTypes.object
     }
 
-    viewStyle = () => {
-        return {
-            minWidth: '80vw',
-            minHeight: '75vw'
-        };
-    }
-
     render() {
         return (
-            <div style={this.viewStyle()}>
+            <div className="tab-container">
                 <Tabs defaultActiveKey="lol">
                     <Tab eventKey="lol" title="League of Legends">
                         <TabView
