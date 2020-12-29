@@ -1,18 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const config = require('config');
 
 const users = require('./routes/api/users');
 const workouts = require('./routes/api/workouts');
+const authentication = require('./routes/api/authentication');
  
 const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-const dbConfig = require('./config/keys').mongoURI;
+const dbConfig = config.get('mongoURI');
 
 mongoose.connect(dbConfig, { useNewUrlParser: true })
     .then(() => console.log('mongoose connected to mongo db :)'))
@@ -22,6 +23,7 @@ const connection = mongoose.connection;
 
 app.use('/api/users', users);
 app.use('/api/workouts', workouts);
+app.use('/api/auth', authentication);
 
 connection.once('open', function () {
     console.log("MongoDB database connection established successfully");
