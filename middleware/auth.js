@@ -2,19 +2,23 @@ const config = require('config');
 const jwt = require('jsonwebtoken');
 
 function auth(req, res, next) {
-    const token = req.header('x-auth-token');
-
-    if (!token) {
-        res.status(401).json({ msg: 'No token' });
-    }
+    const token = req.cookies.token || '';
 
     try {
-        const decodedToken = jwt.verify(token, config.get('jwtSecret'));
+        if (!token) {
+            return res.sendStatus(401);
+        }
 
-        req.user = decodedToken;
-        next();
-    } catch (e) {
-        res.status(400).json({msg: "Invalid token"})
+        jwt.verify(token, config.get('jwtSecret'), (err, user) => {
+            if (err) {
+                return res.sendStatus(403);
+            }
+
+            req.user = user;
+            next();
+        });
+    } catch {
+        return res.sendStatus(500);
     }
 }
 

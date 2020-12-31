@@ -7,7 +7,7 @@ const User = require('../../models/User');
 
 // @route GET api/users
 // @desc Get all users
-router.get('/', (req, res) => {
+router.get('/', auth, (req, res) => {
     User.find()
         .sort({ name: -1 })
         .then(users => res.json(users));
@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
 
 // @route GET api/users/:name
 // @desc Get a specific user
-router.get('/:name', (req, res) => {
+router.get('/:name', auth, (req, res) => {
     const { name } = req.params;
 
-    if (!name) {
-        res.status(400).json({ msg: 'Error finding user' });
+    if (typeof name === 'undefined') {
+        return res.status(400).json({ msg: 'Error finding user' });
     }
 
     User.findOne({ name })
@@ -29,10 +29,15 @@ router.get('/:name', (req, res) => {
 // @route POST api/users
 // @desc Create a user
 router.post('/', (req, res) => {
-    const { name, pushups, situps, squats } = req.body;
-    
-    if (!name || !pushups || !situps || !squats) {
-        res.status(400).json({ msg: 'Error creating a user' })
+    const { name, password, pushups, situps, squats } = req.body;
+    console.log(name, password, pushups, situps, squats);
+
+    if (typeof name === 'undefined' 
+    || typeof password === 'undefined' 
+    || typeof pushups === 'undefined' 
+    || typeof situps === 'undefined' 
+    || typeof squats === 'undefined') {
+        return res.status(400).json({ msg: 'Error creating a user' })
     }
 
     const saltRounds = 10;
@@ -56,8 +61,8 @@ router.post('/', (req, res) => {
 router.delete('/:name', auth, (req, res) => {
     const { name } = req.params;
 
-    if (!name) {
-        res.status(400).json({ msg: 'Error deleting user' });
+    if (typeof name === 'undefined') {
+        return res.status(400).json({ msg: 'Error deleting user' });
     }
 
     User.deleteOne({ name })

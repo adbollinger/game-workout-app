@@ -9,8 +9,11 @@ const User = require('../../models/User');
 router.patch('/', auth, (req, res) => {
     const { name, pushups, situps, squats } = req.body;
 
-    if (!name || !pushups || !situps || !squats) {
-        res.status(400).json({ msg: 'Error saving workout' })
+    if (typeof name === 'undefined'
+    || typeof pushups === 'undefined' 
+    || typeof situps === 'undefined' 
+    || typeof squats === 'undefined') {
+        return res.status(400).json({ msg: 'Error saving workout' })
     }
 
     User.findOneAndUpdate({ name: name }, {
