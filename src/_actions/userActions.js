@@ -1,5 +1,5 @@
 import { userConstants } from "../_constants"
-import { userService } from "../_services"
+import { authService, userService } from "../_services"
 
 export const userActions = {
     getUser,
@@ -8,15 +8,15 @@ export const userActions = {
     updateWorkout
 }
 
-function addUser(user) {
+function addUser(userRequest) {
     return dispatch => {
-        dispatch(request(user));
+        dispatch(request(userRequest));
 
-        userService.addUser(user)
+        userService.addUser(userRequest)
             .then(
                 user => {
                     dispatch(success(user));
-                    userService.login(user.name);
+                    authService.login(userRequest.name, userRequest.password);
                 },
                 error => dispatch(failure(error.toString()))
             );

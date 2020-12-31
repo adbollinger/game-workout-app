@@ -32,19 +32,16 @@ class Navbar extends Component {
 
     handleWorkoutModalSubmit(results) {
         const { user } = this.props;
+        const { name } = user;
 
         const values = {
             pushups: -results.pushups,
             situps: -results.situps,
             squats: -results.squats,
-            name: user
+            name
         };
 
         this.props.updateWorkout(values);
-
-        /*this.setState({
-            results: this.props.users.user
-        });*/
     }
 
     handleLogout() {
@@ -52,7 +49,7 @@ class Navbar extends Component {
     }
 
     renderRightSide() {
-        if (this.props.user === null || this.props.user === '') {
+        if (typeof this.props.user === 'undefined' || !this.props.user.name) {
             return (
                 <React.Fragment>
                     <Nav.Item>
@@ -66,7 +63,7 @@ class Navbar extends Component {
         } else {
             return (
                 <React.Fragment>
-                    <NavDropdown title={this.props.user} id="nav-dropdown">
+                    <NavDropdown title={this.props.user.name || ''} id="nav-dropdown">
                         <NavDropdown.Item eventKey="logout">Log out</NavDropdown.Item>
                     </NavDropdown>
                     <Nav.Item>
@@ -100,16 +97,16 @@ class Navbar extends Component {
                     <div className="flex-grow-1"></div>
                     {this.renderRightSide()}
                 </Nav>
-                <WorkoutModal showModal={this.state.showWorkoutModal} results={this.props.users.user} handleClose={this.handleWorkoutModalClose.bind(this)} handleSubmit={this.handleWorkoutModalSubmit.bind(this)} />
+                <WorkoutModal showModal={this.state.showWorkoutModal} results={this.props.userReducer.user} handleClose={this.handleWorkoutModalClose.bind(this)} handleSubmit={this.handleWorkoutModalSubmit.bind(this)} />
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    const { users, auth } = state;
-    const { user } = auth;
-    return { users, user }
+    const { userReducer, authReducer } = state;
+    const { user } = authReducer;
+    return { userReducer, user }
 };
 
 const actions = {

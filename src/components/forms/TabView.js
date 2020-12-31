@@ -36,7 +36,7 @@ class TabView extends Component {
 
         this.setState({
             results: results,
-            totalValues: this.props.users.user
+            totalValues: this.props.userReducer.user
         });
     }
 
@@ -78,9 +78,9 @@ class TabView extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, auth } = state;
-    const { user } = auth;
-    return { users, user }
+    const { userReducer, authReducer } = state;
+    const { user } = authReducer;
+    return { userReducer, user }
 };
 
 const actions = {

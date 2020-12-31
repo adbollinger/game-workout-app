@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { userActions } from '../../_actions';
 import { connect } from 'react-redux';
 
-import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
@@ -22,6 +21,7 @@ class CreateAccount extends Component {
 
         const user = {
             name: this.state.name,
+            password: this.state.password,
             pushups: 0,
             situps: 0,
             squats: 0,
@@ -73,9 +73,9 @@ class CreateAccount extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, auth } = state;
-    const { user } = auth;
-    return { users, user }
+    const { userReducer, authReducer } = state;
+    const { user } = authReducer;
+    return { userReducer, user }
 };
 
 const actions = {

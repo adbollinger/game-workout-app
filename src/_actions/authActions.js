@@ -1,36 +1,46 @@
 import { authConstants } from "../_constants";
-import { userService } from "../_services/userService";
+import { authService } from "../_services";
 
 export const authActions = {
     login,
     logout
 }
 
-function login(username) {
-    /*
+function login(username, password) {        
     return dispatch => {
-        userService.login(username)
+        dispatch(request());
+        authService.login(username, password)
             .then(
-                user => {
-                    dispatch(success(user));
+                data => {
+                    dispatch(success(data));
                 },
                 error => {
                     dispatch(failure(error.toString()));
                 }
             );
-            
-           
     }
-    */
-    return success(userService.login(username));
 
-    function success(user) { return { type: authConstants.LOGIN_SUCCESS, user } }
-    //function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
+    function request() { return { type: authConstants.LOGIN_LOADING } }
+    function success(data) { return { type: authConstants.LOGIN_SUCCESS, data } }
+    function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
 
 function logout() {
-    userService.logout();
-    return {
-        type: authConstants.LOGOUT_SUCCESS
+    return dispatch => {
+        dispatch(request());
+        authService.logout()
+            .then(
+                data => {
+                    dispatch(success());
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                }
+            );
     }
+
+    
+    function request() { return { type: authConstants.LOGOUT_LOADING } }
+    function success() { return { type: authConstants.LOGOUT_SUCCESS } }
+    function failure(error) { return { type: authConstants.LOGOUT_FAILURE, error } }
 }

@@ -8,7 +8,7 @@ import Table from 'react-bootstrap/Table';
 class Leaderboard extends Component {
     static propTypes = {
         getUsers: PropTypes.func.isRequired,
-        users: PropTypes.object.isRequired
+        userReducer: PropTypes.object.isRequired
     }
 
     componentDidMount() {
@@ -16,7 +16,7 @@ class Leaderboard extends Component {
     }
 
     render() {
-        const { users } = this.props.users;
+        const { users } = this.props.userReducer;
         return (
             <div>
                 <div className="users">
@@ -54,9 +54,9 @@ class Leaderboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, auth } = state;
-    const { user } = auth;
-    return { users, user }
+    const { userReducer, authReducer } = state;
+    const { user } = authReducer;
+    return { userReducer, user }
 };
 
 const actions = {

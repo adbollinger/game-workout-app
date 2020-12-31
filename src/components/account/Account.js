@@ -11,11 +11,13 @@ class Account extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <Route path="/account/leaderboard" component={Leaderboard}/>
-                <Route path="/account/login" component={Login} />
-                <Route path="/account/create" component={CreateAccount} />
-            </React.Fragment>
+            <Router>
+                <Switch>
+                    <Route path="/account/leaderboard" component={Leaderboard} />
+                    <Route path="/account/login" component={Login} />
+                    <Route path="/account/create" component={CreateAccount} />
+                </Switch>
+            </Router>
         )
     }
 }

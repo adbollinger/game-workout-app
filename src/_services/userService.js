@@ -1,6 +1,6 @@
+import { authService } from ".";
+
 export const userService = {
-    login,
-    logout,
     getAll,
     getById,
     addUser,
@@ -9,36 +9,11 @@ export const userService = {
 
 const baseUrl = 'http://localhost:4000/api';
 
-function login(username) {
-    /*
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username })
-    };
-
-    return fetch(`${config.apiUrl}/users/authenticate`, requestOptions)
-        .then(handleResponse)
-        .then(user => {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
-            return user;
-        });
-        */
-    localStorage.setItem('user', username);
-    return username;
-}
-
-function logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('user');
-}
-
 function getAll() {
     const requestOptions = {
         method: 'GET',
-        //headers: authHeader()
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include' 
     };
 
     return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
@@ -47,7 +22,8 @@ function getAll() {
 function getById(id) {
     const requestOptions = {
         method: 'GET',
-        //headers: authHeader()
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
     };
 
     return fetch(`${baseUrl}/users/${id}`, requestOptions).then(handleResponse);
@@ -57,8 +33,8 @@ function addUser(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(user)
-        //headers: authHeader()
     };
 
     return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
@@ -68,8 +44,8 @@ function updateWorkout(user) {
     const requestOptions = {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(user)
-        //headers: authHeader()
     };
 
     return fetch(`${baseUrl}/workouts`, requestOptions).then(handleResponse);
@@ -81,7 +57,7 @@ function handleResponse(response) {
         if (!response.ok) {
             if (response.status === 401) {
                 // auto logout if 401 response returned from api
-                logout();
+                authService.logout();
             }
 
             const error = (data && data.message) || response.statusText;

@@ -11,22 +11,24 @@ import { connect } from 'react-redux';
 class Login extends Component {
     static propTypes = {
         login: PropTypes.func.isRequired,
-        user: PropTypes.object.isRequired
+        user: PropTypes.object
     }
 
     constructor() {
         super();
         this.state = {
-            name: ""
+            name: "",
+            password: ""
         };
     }
 
     handleInputChange = (event) => {
         const target = event.target;
         const value = target.value;
+        const name = target.name;
 
         this.setState({
-            name: value
+            [name]: value
         });
     }
 
@@ -37,7 +39,7 @@ class Login extends Component {
         event.stopPropagation();
 
         if (form.checkValidity() !== false && this.state.name !== '') {
-            this.props.login(this.state.name);
+            this.props.login(this.state.name, this.state.password);
         }
     }
 
@@ -46,7 +48,7 @@ class Login extends Component {
             <div>
                 <h1>Login</h1>
                 <Form onSubmit={this.handleSubmit} className="card-view">
-                    <InputGroup className="mb-3">
+                    <InputGroup className="mb-2">
                         <InputGroup.Prepend>
                             <InputGroup.Text id="name">Name</InputGroup.Text>
                         </InputGroup.Prepend>
@@ -59,6 +61,19 @@ class Login extends Component {
                             onChange={this.handleInputChange}
                         />
                     </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Prepend>
+                            <InputGroup.Text id="password">Password</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <FormControl
+                            name="password"
+                            type="password"
+                            placeholder=""
+                            aria-label="0"
+                            aria-describedby="password"
+                            onChange={this.handleInputChange}
+                        />
+                    </InputGroup>
 
                     <Button className="mt-5 mb-3" type="submit">Login</Button>
                 </Form>
@@ -68,9 +83,9 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { users, auth } = state;
-    const { user } = auth;
-    return { users, user }
+    const { userReducer, authReducer } = state;
+    const { user } = authReducer;
+    return { userReducer, user }
 };
 
 const actions = {

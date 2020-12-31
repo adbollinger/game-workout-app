@@ -5,7 +5,7 @@ const initialState = {
     users: []
 }
 
-export default function (state = initialState, action) {
+export default function userReducer(state = initialState, action) {
     switch (action.type) {
         // GET USERS
         case userConstants.GET_USERS_LOADING:
