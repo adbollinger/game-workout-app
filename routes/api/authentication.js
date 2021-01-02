@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
+const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 // @route POST api/auth/login
@@ -33,10 +34,17 @@ router.post('/login', (req, res) => {
 
 });
 
-// @route POST api/auth/logout
+// @route GET api/auth/logout
 // @desc logout
 router.get('/logout', (req, res) => {
     res.clearCookie('token').sendStatus(200);
+});
+
+// @route GET api/auth/logout
+// @desc logout
+router.get('/user', auth, (req, res) => {
+    console.log(req.user)
+    return res.status(200).json({ user: req.user });
 });
 
 module.exports = router;
