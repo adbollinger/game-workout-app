@@ -3,7 +3,8 @@ import { authService } from "../_services";
 
 export const authActions = {
     login,
-    logout
+    logout,
+    getUser
 }
 
 function login(username, password) {        
@@ -43,4 +44,24 @@ function logout() {
     function request() { return { type: authConstants.LOGOUT_LOADING } }
     function success() { return { type: authConstants.LOGOUT_SUCCESS } }
     function failure(error) { return { type: authConstants.LOGOUT_FAILURE, error } }
+}
+
+function getUser() {
+    return dispatch => {
+        dispatch(request());
+        authService.getUser()
+            .then(
+                data => {
+                    dispatch(success(data));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                }
+            );
+    }
+
+    
+    function request() { return { type: authConstants.GETUSER_LOADING } }
+    function success(data) { return { type: authConstants.GETUSER_SUCCESS, data } }
+    function failure(error) { return { type: authConstants.GETUSER_FAILURE, error } }
 }

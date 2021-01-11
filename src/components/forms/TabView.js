@@ -8,12 +8,14 @@ class TabView extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             showForm: true,
             results: {
                 pushups: 0,
                 situps: 0,
                 squats: 0
+            },
+            currentTotalValues: {
             },
             totalValues: {
                 pushups: 0,
@@ -29,19 +31,32 @@ class TabView extends Component {
 
         const values = {
             ...results,
-            name: user
+            name: user.name
         };
 
         this.props.updateWorkout(values);
 
         this.setState({
-            results: results,
-            totalValues: this.props.userReducer.user
+            results: results
         });
     }
 
-    addWorkoutToDatabase() {
-        // Send query and then show results with total results
+    static getDerivedStateFromProps(nextProps, state) {
+        const totalValues = state.currentTotalValues;
+        const newTotalValues = nextProps.userReducer.user;
+
+        if (newTotalValues !== totalValues && typeof newTotalValues !== 'undefined') {
+            const newValues = {
+                pushups: newTotalValues.pushups,
+                situps: newTotalValues.situps,
+                squats: newTotalValues.squats
+            }
+            return {
+                ...state,
+                totalValues: newValues,
+                currentTotalValues: newValues,
+            };
+        }
     }
 
     handleResetForm() {

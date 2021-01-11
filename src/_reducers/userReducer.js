@@ -2,7 +2,8 @@ import { userConstants } from "../_constants";
 
 const initialState = {
     loading: false,
-    users: []
+    users: [],
+    user: {}
 }
 
 export default function userReducer(state = initialState, action) {
@@ -14,10 +15,12 @@ export default function userReducer(state = initialState, action) {
             };
         case userConstants.GET_USERS_SUCCESS:
             return {
+                loading: false,
                 users: action.users
             };
         case userConstants.GET_USERS_FAILURE:
             return {
+                loading: false,
                 error: action.error
             };
         // GET USER

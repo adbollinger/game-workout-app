@@ -1,9 +1,10 @@
 export const authService = {
     login,
-    logout
+    logout,
+    getUser
 };
 
-const baseUrl = 'http://localhost:4000/api';
+const baseUrl = 'http://localhost:4000/api/auth';
 
 function login(name, password) {
     const requestOptions = {
@@ -13,7 +14,7 @@ function login(name, password) {
         body: JSON.stringify({ name, password })
     };
 
-    return fetch(`${baseUrl}/auth/login`, requestOptions)
+    return fetch(`${baseUrl}/login`, requestOptions)
         .then(handleResponse)
         .then(res => {
             return res;
@@ -27,7 +28,17 @@ function logout() {
         credentials: 'include'
     };
 
-    return fetch(`${baseUrl}/auth/logout`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/logout`, requestOptions).then(handleResponse);
+}
+
+function getUser() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+    };
+
+    return fetch(`${baseUrl}/user`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

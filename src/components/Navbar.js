@@ -23,6 +23,10 @@ class Navbar extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.getUser();
+    }
+
     handleWorkoutModalClose() {
         this.setState({
             showWorkoutModal: false,
@@ -110,6 +114,7 @@ const mapStateToProps = (state) => {
 };
 
 const actions = {
+    getUser: authActions.getUser,
     logout: authActions.logout,
     updateWorkout: userActions.updateWorkout
 }

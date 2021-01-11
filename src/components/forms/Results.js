@@ -5,13 +5,12 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 
 class Results extends Component {
-    render() {
-        const { values, totalValues } = this.props;
+
+    renderValues() {
+        const { values } = this.props;
+
         return (
-            <div className="container">
-                <form>
-                    <div className="row">
-                        <div className="col-6">
+            <div className="col-6">
                             <h2>From this match</h2>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
@@ -52,7 +51,18 @@ class Results extends Component {
                                 />
                             </InputGroup>
                         </div>
-                        <div className="col-6">
+        )
+    }
+
+    renderTotalValues() {
+        const { totalValues } = this.props;
+
+        if (typeof totalValues === 'undefined') {
+            return;
+        }
+
+        return (
+            <div className="col-6">
                             <h2>Total</h2>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
@@ -93,6 +103,17 @@ class Results extends Component {
                                 />
                             </InputGroup>
                         </div>
+        )
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <form>
+                    <div className="row">
+                        { this.renderValues() }
+                        { this.renderTotalValues() }
+                        
                     </div>
 
                     <Button className="mt-5 mb-3" onClick={() => this.props.onReset()}>Reset</Button>
