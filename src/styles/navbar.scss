@@ -2,10 +2,10 @@
 
 .App-navbar {
     min-height: 50px;
-    background-color: $app-default-background;
+    background-color: $app-primary-dark;
     .nav-item {
         a {
-            color: $app-text-bright;
+            color: $app-primary-text;
 
             &:hover {
                 color: $app-primary;
@@ -13,10 +13,10 @@
         }
 
         .dropdown-menu {
-            background-color: $app-default-background;
+            background-color: $app-primary-dark;
 
             .dropdown-item:hover {
-                background-color: $app-default-background;
+                background-color: $app-primary-dark;
             }
         }
     }

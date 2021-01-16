@@ -12,21 +12,25 @@
             border: none;
             border-top-right-radius: 0.75rem;
             border-top-left-radius: 0.75rem;
-            background-color: $app-background-dark;
-            color: $app-text-bright;
+            background-color: $app-form;
+            color: $app-form-text;
 
             &:hover:not(.active) {
-                background-color: #2b3546;
+                background-color: $app-form-light;
             }
 
             &.active {
-                background-color: $app-default-background;
+                border-bottom: 3px solid $app-secondary;
+            }
+
+            &:not(:first-child) {
+                margin-left: 0.5rem;
             }
         }
     }
 
     .tab-content .tab-pane {
-        background-color: $app-default-background;
+        background-color: $app-form;
         border-top-right-radius: 0.75rem;
         border-bottom-right-radius: 0.75rem;
         border-bottom-left-radius: 0.75rem;

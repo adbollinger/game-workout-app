@@ -1,12 +1,20 @@
-$app-default-background: #1e1e1e;
-$app-background-light: #303030;
-$app-background-dark: #181818;
-$app-primary: #6200ee;
-$app-primary-hover: #6b02e4;
-$app-secondary: #fff; // TBD
+$app-primary: #ff9800;
+$app-primary-light: #ffc947;
+$app-primary-dark: #c66900;
+$app-primary-text: #fff;
+
+$app-secondary: #5c6bc0;
+$app-secondary-light: #8e99f3;
+$app-secondary-dark: #26418f;
+$app-secondary-text: #fff;
 
 $app-error: #cf6679;
 
 $app-text:  rgba(255, 255, 255, 0.6);
 $app-text-bright: rgba(255, 255, 255, 0.87);
+
+$app-form: #1b202a;
+$app-form-light: #222936;
+$app-form-dark: #1c1f2c;
+$app-form-text: #fff;
 

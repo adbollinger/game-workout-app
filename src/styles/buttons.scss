@@ -2,15 +2,15 @@
 
 .btn {
     &.btn-primary {
-        background-color: $app-primary;
-        border-color: $app-primary;
-        color: #000;
+        background-color: $app-secondary;
+        border-color: $app-secondary;
+        color: $app-secondary-text;
         font-weight: 600;
 
         &:hover {
-            background-color: $app-primary-hover;
-            border-color: $app-primary-hover;
-            color: #000; 
+            background-color: $app-secondary-light;
+            border-color: $app-secondary-light;
+            color: $app-secondary-text;
             font-weight: 600;
         }
     }
