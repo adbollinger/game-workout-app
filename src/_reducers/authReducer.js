@@ -12,26 +12,35 @@ export default function authReducer(state = initialState, action) {
         case authConstants.LOGIN_LOADING:
         case authConstants.GETUSER_LOADING:
             return {
+                ...state,
                 loading: true
             };
         case authConstants.LOGIN_SUCCESS:
             return {
+                ...state,
+                loading: false,
                 loggedIn: true,
                 user: action.data.user
             };
         case authConstants.GETUSER_SUCCESS:
             return {
+                ...state,
+                loading: false,
                 user: action.data.user
             }
         case authConstants.GETUSER_FAILURE:
         case authConstants.LOGIN_FAILURE:
         case authConstants.LOGOUT_SUCCESS:
             return {
+                ...state,
+                loading: false,
                 loggedIn: false,
                 user: {}
             };
         case authConstants.LOGOUT_FAILURE:
             return {
+                ...state,
+                loading: false,
                 loggedIn: true
             }
         default:

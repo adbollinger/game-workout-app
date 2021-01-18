@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 
 
 import WorkoutModal from './WorkoutModal';
-import { authActions, userActions } from '../_actions';
+import { authActions, userActions } from '../../_actions';
 
 class Navbar extends Component {
     static propTypes = {
@@ -53,7 +53,7 @@ class Navbar extends Component {
     }
 
     renderRightSide() {
-        if (typeof this.props.user === 'undefined' || !this.props.user.name) {
+        if (!this.props.loading && !this.props.user.name) {
             return (
                 <React.Fragment>
                     <Nav.Item>
@@ -93,10 +93,10 @@ class Navbar extends Component {
                     onSelect={(selectedKey) => { this.handleSelect(selectedKey) }}
                 >
                     <Nav.Item>
-                        <Nav.Link href="/">Workouts</Nav.Link>
+                        <Nav.Link href="/home">Workouts</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link href="/account/leaderboard">Leaderboard</Nav.Link>
+                        <Nav.Link href="/home/leaderboard">Leaderboard</Nav.Link>
                     </Nav.Item>
                     <div className="flex-grow-1"></div>
                     {this.renderRightSide()}
@@ -109,8 +109,8 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     const { userReducer, authReducer } = state;
-    const { user } = authReducer;
-    return { userReducer, user }
+    const { user, loading } = authReducer;
+    return { userReducer, user, loading }
 };
 
 const actions = {
