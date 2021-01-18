@@ -13,7 +13,9 @@
 
 .App-body {
   padding-top: 2rem;
-  background-color: $app-primary;
+  background-image: url(./images/GradientOrange.jpg);    
+  background-position: 0px 0px;
+  background-size: cover;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
