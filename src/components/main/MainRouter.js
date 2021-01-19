@@ -11,7 +11,7 @@ class MainRouter extends Component {
             <div>
                 <Router>
                     <Navbar />
-                    <div className="App-body">
+                    <div className="App-body main">
                         <Switch>
                             <Route exact path="/home" component={TabsView} />
                             <Route path="/home/leaderboard" component={Leaderboard} />

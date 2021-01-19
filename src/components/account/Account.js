@@ -11,10 +11,12 @@ class Account extends Component {
     render() {
         return (
             <Router>
-                <Switch>
-                    <Route path="/account/login" component={Login} />
-                    <Route path="/account/create" component={CreateAccount} />
-                </Switch>
+                <div className="App-body">
+                    <Switch>
+                        <Route path="/account/login" component={Login} />
+                        <Route path="/account/create" component={CreateAccount} />
+                    </Switch>
+                </div>
             </Router>
         )
     }
