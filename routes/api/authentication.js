@@ -37,7 +37,7 @@ router.post('/login', (req, res) => {
 // @route GET api/auth/logout
 // @desc logout
 router.get('/logout', (req, res) => {
-    res.clearCookie('token').sendStatus(200);
+    res.clearCookie('token').status(200).json({ message: 'successfully logged out'});
 });
 
 // @route GET api/auth/logout
