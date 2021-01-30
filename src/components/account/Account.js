@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import CreateAccount from './CreateAccount';
 
 import Login from './Login';
@@ -10,14 +10,10 @@ class Account extends Component {
 
     render() {
         return (
-            <Router>
-                <div className="App-body">
-                    <Switch>
-                        <Route path="/account/login" component={Login} />
-                        <Route path="/account/create" component={CreateAccount} />
-                    </Switch>
-                </div>
-            </Router>
+            <div className="App-body">
+                <Route path="/account/login" component={Login} />
+                <Route path="/account/create" component={CreateAccount} />
+            </div>
         )
     }
 }

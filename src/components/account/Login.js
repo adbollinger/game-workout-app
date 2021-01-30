@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { authActions } from '../../_actions';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 class Login extends Component {
     static propTypes = {
@@ -44,6 +46,10 @@ class Login extends Component {
     }
 
     render() {
+        if (!this.props.loading && this.props.user.name) {
+            this.props.history.push('/home');
+        }
+
         return (
             <div>
                 <h1>Login</h1>
@@ -92,4 +98,7 @@ const actions = {
     login: authActions.login
 }
 
-export default connect(mapStateToProps, actions)(Login);
+export default compose(
+    withRouter,
+    connect(mapStateToProps, actions)
+)(Login);

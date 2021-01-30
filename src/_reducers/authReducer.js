@@ -26,6 +26,7 @@ export default function authReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                loggedIn: true,
                 user: action.data.user
             }
         case authConstants.GETUSER_FAILURE:

@@ -9,6 +9,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 
 import WorkoutModal from './WorkoutModal';
 import { authActions, userActions } from '../../_actions';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 class Navbar extends Component {
     static propTypes = {
@@ -18,13 +20,17 @@ class Navbar extends Component {
     constructor() {
         super();
         this.state = {
-            showWorkoutModal: false,
-            //results: null
+            initialized: false,
+            showWorkoutModal: false
         }
     }
 
     componentDidMount() {
         this.props.getUser();
+
+        this.setState({
+            initialized: true
+        });
     }
 
     handleWorkoutModalClose() {
@@ -53,17 +59,8 @@ class Navbar extends Component {
     }
 
     renderRightSide() {
-        if (!this.props.loading && !this.props.user.name) {
-            return (
-                <React.Fragment>
-                    <Nav.Item>
-                        <Nav.Link href="/account/login">Login</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/account/create">Create account</Nav.Link>
-                    </Nav.Item>
-                </React.Fragment>
-            )
+        if (this.state.initialized && !this.props.loading && !this.props.loggedIn) {
+            this.props.history.push('/account/login');
         } else {
             return (
                 <React.Fragment>
@@ -109,8 +106,8 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     const { userReducer, authReducer } = state;
-    const { user, loading } = authReducer;
-    return { userReducer, user, loading }
+    const { user, loading, loggedIn } = authReducer;
+    return { userReducer, user, loading, loggedIn }
 };
 
 const actions = {
@@ -119,4 +116,7 @@ const actions = {
     updateWorkout: userActions.updateWorkout
 }
 
-export default connect(mapStateToProps, actions)(Navbar);
+export default compose(
+    withRouter,
+    connect(mapStateToProps, actions)
+)(Navbar);

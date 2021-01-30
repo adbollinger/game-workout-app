@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class HomePage extends Component {
 
@@ -25,7 +25,7 @@ class HomePage extends Component {
     render() {
         const { redirect } = this.state;
         if (redirect) {
-            return <Redirect to={redirect}></Redirect>
+            this.props.history.push(redirect);
         }
         return (
             <div id="home_page">
@@ -49,4 +49,4 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+export default withRouter(HomePage);
