@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { userActions } from '../../_actions';
 
 import Table from 'react-bootstrap/Table';
+import DataTable from 'react-data-table-component';
 
 class Leaderboard extends Component {
     static propTypes = {
@@ -15,6 +16,37 @@ class Leaderboard extends Component {
         this.props.getUsers();
     }
 
+    getColumns() {
+        return [
+            {
+                name: "Name",
+                selector: "name",
+                sortable: false
+            },
+            {
+                name: "Pushups",
+                selector: "pushups",
+                sortable: true
+            },
+            {
+                name: "Situps",
+                selector: "situps",
+                sortable: true
+            },
+            {
+                name: "Squats",
+                selector: "squats",
+                sortable: true
+            },
+        ];
+    }
+
+    getHeader() {
+        return {
+            fixedHeader: true
+        }
+    }
+
     render() {
         const { users } = this.props.userReducer;
         return (
@@ -24,26 +56,12 @@ class Leaderboard extends Component {
                         <React.Fragment>
                             {users && users.loading && <em> Loading </em>}
                             {users &&
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Pushups</th>
-                                            <th>Situps</th>
-                                            <th>Squats</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {users.map(({_id, name, pushups, situps, squats}) => (
-                                            <tr className="user" key={_id}>
-                                                <td>{name}</td>
-                                                <td>{pushups}</td>
-                                                <td>{situps}</td>
-                                                <td>{squats}</td>
-                                            </tr>
-                                        ))}
-                                </tbody>
-                                </Table>
+                                <DataTable
+                                    title="Remaining workouts"
+                                    columns={this.getColumns()}
+                                    fixedHeader={users.length > 20}
+                                    data={users}
+                                />
                             }
                         </React.Fragment>
                     }
