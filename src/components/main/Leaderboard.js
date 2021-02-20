@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { userActions } from '../../_actions';
 
-import Table from 'react-bootstrap/Table';
 import DataTable from 'react-data-table-component';
 
 class Leaderboard extends Component {
@@ -38,6 +37,11 @@ class Leaderboard extends Component {
                 selector: "squats",
                 sortable: true
             },
+            {
+                name: "Total",
+                selector: "total",
+                sortable: true
+            },
         ];
     }
 
@@ -45,6 +49,19 @@ class Leaderboard extends Component {
         return {
             fixedHeader: true
         }
+    }
+
+    getData(users) {
+        const data = [];
+
+        users.forEach(user => {
+            data.push({
+                ...user,
+                total: user.pushups + user.situps + user.squats
+            });
+        });
+
+        return data;
     }
 
     render() {
@@ -60,7 +77,9 @@ class Leaderboard extends Component {
                                     title="Remaining workouts"
                                     columns={this.getColumns()}
                                     fixedHeader={users.length > 20}
-                                    data={users}
+                                    data={this.getData(users)}
+                                    defaultSortFieldId={5}
+                                    defaultSortAsc={false}
                                 />
                             }
                         </React.Fragment>

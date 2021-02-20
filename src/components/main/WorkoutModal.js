@@ -45,7 +45,7 @@ class WorkoutModal extends Component {
                 <Modal.Body>
                     <div className="row">
                         <div className={results === undefined ? "col-12" : "col-6"}>
-                            <h4>Your workout</h4>
+                            <h4>Your completed workout</h4>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="pushups">Pushups</InputGroup.Text>
