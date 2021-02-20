@@ -44,7 +44,7 @@ Run the client:
 
 `npm run start`  
 
-Once the [server](https://github.com/adbollinger/game-workout-server) is set up, you can run the server and the client together.
+Once the [server](https://github.com/adbollinger/game-workout-server#installation-and-setup-instructions) is set up, you can run the server and the client together.
 
 Navigate to the server directory and type:
 
