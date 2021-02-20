@@ -6,7 +6,7 @@ Inspired by the COVID-19 lockdowns and complaints about gym closures, this proje
 
 ### Key Features:
 
-- User accounts with salting/hasing, JWT, and authentication cookies.
+- User accounts with salting/hashing, JWT, and authentication cookies.
 - Retaining a list of outstanding workouts in MongoDB. 
   - Increased by completing a game and filling out a form to gauge performance.
   - Decreased by entering the exercises completed.
