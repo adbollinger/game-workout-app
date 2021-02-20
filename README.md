@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+## Game Workout Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**This is only the client-side portion of this project. You can view the server side [here](https://github.com/adbollinger/game-workout-server).**
 
-## Available Scripts
+Inspired by the COVID-19 lockdowns and complaints about gym closures, this project is intended to provide motivation for home workouts by providing a list of exercise based on video game performance.
 
-In the project directory, you can run:
+### Key Features:
 
-### `npm start`
+- User accounts with salting/hasing, JWT, and authentication cookies.
+- Retaining a list of outstanding workouts in MongoDB. 
+  - Increased by completing a game and filling out a form to gauge performance.
+  - Decreased by entering the exercises completed.
+- Leaderboard of outstanding workouts - intented to motivate users to complete workouts as they receive them.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Screen Shots
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Filling out a game performance form
+![Game performance form](./src/images/screenshots/form.png)
 
-### `npm test`
+### Receiving a workout based on game performance
+![Workout result](./src/images/screenshots/results.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Entering a completed workout
+![Completed workout modal](./src/images/screenshots/completed-form.png)
 
-### `npm run build`
+### Viewing the leaderboard
+![Leaderboard](./src/images/screenshots/leaderboard.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation and Setup Instructions
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To run this project, you will need `Node` installed globally on your machine.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Start by cloning this repository and following the installation instructions below.
 
-### `npm run eject`
+### Installation:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**This installation only covers the client-side portion of this project.**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependancies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`npm install`  
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Run the client:  
 
-## Learn More
+`npm run start`  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once the [server](https://github.com/adbollinger/game-workout-server) is set up, you can run the server and the client together.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Navigate to the server directory and type:
 
-### Code Splitting
+`npm run dev`  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
