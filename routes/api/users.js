@@ -30,7 +30,6 @@ router.get('/:name', auth, (req, res) => {
 // @desc Create a user
 router.post('/', (req, res) => {
     const { name, password, pushups, situps, squats } = req.body;
-    console.log(name, password, pushups, situps, squats);
 
     if (typeof name === 'undefined' 
     || typeof password === 'undefined' 
