@@ -12,10 +12,11 @@ Start by cloning this repository and following the installation instructions bel
 
 ### Create a database
 
-This link will guide you through creating a Mongo Database
+This link will guide you through creating a local Mongo Database:
 
 https://www.mongodb.com/basics/create-database
 
+### Config
 Once your database is set up, you will need to configuire your config file:
 
 - Create a folder named **config**
