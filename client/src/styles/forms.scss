@@ -1,0 +1,15 @@
+@import 'variables';
+
+form {
+    color: $app-form-text;
+    padding-top: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+
+    &.card-view {
+        border-radius: 0.75rem;
+        padding: 1rem;
+        background-color: $app-form;
+        min-width: 400px;
+    }
+}

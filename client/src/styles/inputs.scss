@@ -1,0 +1,51 @@
+@import "variables";
+
+@mixin input-style {
+    background-color: $app-form-dark;
+    color: $app-form-text;
+    border: none;
+    -webkit-box-shadow: $app-form-input-shadow;
+    -moz-box-shadow: $app-form-input-shadow;
+    box-shadow: $app-form-input-shadow;
+
+    &:focus,
+    &:-webkit-autofill,
+    &:-webkit-autofill:focus,
+    &:active {
+        background-color: $app-form-dark;
+        color: $app-form-text;
+    }
+}
+
+.input-group {
+    .input-group-prepend span,
+    .form-control[readonly] {
+        background-color: $app-form-dark;
+        color: $app-form-text;
+        border: none;
+    }
+
+    input {
+        @include input-style();
+    }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
+
+.custom-control label {
+    color: $app-form-text;
+}
+
+.form-group input {
+    @include input-style();
+}

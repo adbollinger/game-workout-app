@@ -1,0 +1,19 @@
+@import "variables";
+
+.modal-dialog .modal-content {
+    background-color: $app-form;
+    color: $app-primary-text;
+
+    .modal-body {
+        background-color: $app-form;
+        color: $app-form-text;
+    }
+
+    .close {
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 1.5rem;
+        text-shadow: none;
+        color: $app-error;
+    }
+}

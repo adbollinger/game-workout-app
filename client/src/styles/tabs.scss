@@ -1,0 +1,38 @@
+@import "variables";
+
+.tab-container {
+    min-width: 80vw;
+    min-height: 70vh;
+    margin-bottom: 3rem;
+
+    .nav.nav-tabs {
+        border: none;
+
+        .nav-item.nav-link {
+            border: none;
+            border-top-right-radius: 0.75rem;
+            border-top-left-radius: 0.75rem;
+            background-color: $app-form;
+            color: $app-form-text;
+
+            &:hover:not(.active) {
+                background-color: $app-form-light;
+            }
+
+            &.active {
+                border-bottom: 3px solid $app-secondary;
+            }
+
+            &:not(:first-child) {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
+    .tab-content .tab-pane {
+        background-color: $app-form;
+        border-top-right-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+    }
+}

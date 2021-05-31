@@ -1,0 +1,32 @@
+@import "styles/variables";
+@import "styles/forms";
+@import "styles/modal";
+@import "styles/navbar";
+@import "styles/table";
+@import "styles/tabs";
+@import "styles/buttons";
+@import "styles/inputs";
+@import "styles/home-page";
+
+.App {
+  text-align: center;
+}
+
+.App-body {
+  padding-top: 2rem;
+  background-color: $app-primary;
+  background-image: url(./images/GradientOrangeOpaque.png);
+  background-position: 0px 0px;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: rgba(255, 255, 255, 0.6);
+
+  &.main {
+    min-height: calc(100vh - 50px);
+  }
+}
