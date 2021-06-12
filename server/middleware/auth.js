@@ -9,7 +9,7 @@ function auth(req, res, next) {
             return res.sendStatus(401);
         }
 
-        jwt.verify(token, config.get('jwtSecret'), (err, user) => {
+        jwt.verify(token, process.env.JWTSecret, (err, user) => {
             if (err) {
                 return res.sendStatus(403);
             }

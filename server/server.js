@@ -24,9 +24,7 @@ app.use(cors({
 
 app.use(cookieParser());
 
-const dbConfig = config.get('mongoURI');
-
-mongoose.connect(dbConfig, { useNewUrlParser: true })
+mongoose.connect(process.env.MongoURI, { useNewUrlParser: true })
     .then(() => console.log('mongoose connected to mongo db :)'))
     .catch(err => console.log('mongoose could not connect to mongo db :(', err));
 

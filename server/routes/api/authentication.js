@@ -12,6 +12,7 @@ const User = require('../../models/User');
 router.post('/login', (req, res) => {
     User.findOne({ name: req.body.name })
         .then((user) => {
+            if (!user) return res.status(400).json({ msg: 'invalid login credentials' });
             bcrypt.compare(req.body.password, user.password, function (err, result) {
                 if (result) {
                     jwt.sign(
@@ -19,7 +20,7 @@ router.post('/login', (req, res) => {
                             id: user.id,
                             name: user.name
                         },
-                        config.get('jwtSecret'),
+                        process.env.JWTSecret,
                         { expiresIn: 360000 },
                         (err, token) => {
                             if (err) throw err;
@@ -40,8 +41,8 @@ router.get('/logout', (req, res) => {
     res.clearCookie('token').status(200).json({ message: 'successfully logged out'});
 });
 
-// @route GET api/auth/logout
-// @desc logout
+// @route GET api/auth/user
+// @desc user
 router.get('/user', auth, (req, res) => {
     return res.status(200).json({ user: req.user });
 });
