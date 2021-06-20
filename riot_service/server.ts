@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import { lolRouter } from "./src/apis/LoL";
 // import mongoose from "mongoose";
 
 const app = express();
@@ -22,17 +23,11 @@ app.use(cors({
 
 // const connection = mongoose.connection;
 
-// app.use('/api/users', users);
-// app.use('/api/workouts', workouts);
-// app.use('/api/auth', authentication);
-
 // connection.once('open', function () {
 //     console.log("MongoDB database connection established successfully");
 // })
 
-app.get( "/", ( req, res ) => {
-    res.send( "Hello world!!!" );
-});
+app.use("/api/lol", lolRouter);
 
 app.listen(port, function () {
     console.log("Server is running on Port: " + port);
