@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { lolRouter } from "./src/apis/LoL";
+import { tftRouter } from "./src/apis/tft";
 // import mongoose from "mongoose";
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(cors({
 // })
 
 app.use("/api/lol", lolRouter);
+app.use("/api/tft", tftRouter);
 
 app.listen(port, function () {
     console.log("Server is running on Port: " + port);
