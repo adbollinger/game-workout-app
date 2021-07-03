@@ -34,3 +34,18 @@ services:
         depends_on: 
             - mongo
         command: npm run start
+
+    riot:
+        build: ./riot_service
+        container_name: gw_riot
+        restart: always
+        environment:
+            - MongoURI=mongodb://mongo:27017/riot
+            - RiotApiKey=${RiotApiKey}
+        volumes: 
+            - ./riot_service:/src/app
+        ports: 
+            - "5000:5000"
+        depends_on: 
+            - mongo
+        command: npm run server
