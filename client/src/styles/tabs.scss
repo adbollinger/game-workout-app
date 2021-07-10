@@ -13,14 +13,14 @@
             border-top-right-radius: 0.75rem;
             border-top-left-radius: 0.75rem;
             background-color: $app-form;
-            color: $app-form-text;
+            color: $app-text-bright;
 
             &:hover:not(.active) {
-                background-color: $app-form-light;
+                background-color: $app-form-hover;
             }
 
             &.active {
-                border-bottom: 3px solid $app-secondary;
+                border-bottom: 3px solid $app-primary;
             }
 
             &:not(:first-child) {

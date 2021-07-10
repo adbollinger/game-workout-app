@@ -2,28 +2,28 @@
 
 .btn {
     &.btn-primary {
-        background-color: $app-secondary;
-        border-color: $app-secondary;
-        color: $app-secondary-text;
+        background-color: $app-primary;
+        border-color: $app-primary;
+        color: $app-primary-text;
         font-weight: 600;
 
-        &:hover {
-            background-color: $app-secondary-light;
-            border-color: $app-secondary-light;
-            color: $app-secondary-text;
+        &:hover, &:focus, &:active {
+            background-color: $app-primary-hover;
+            border-color: $app-primary-hover;
+            color: $app-primary-text;
             font-weight: 600;
         }
     }
 
     &.btn-outline-primary {
-        border-color: $app-secondary;
-        color: $app-secondary;
+        border-color: $app-primary;
+        color: $app-primary;
         font-weight: 600;
 
         &:hover {
-            background-color: $app-secondary;
-            border-color: $app-secondary;
-            color: $app-secondary-text;
+            background-color: $app-primary;
+            border-color: $app-primary;
+            color: $app-primary-text;
             font-weight: 600;
         }
     }

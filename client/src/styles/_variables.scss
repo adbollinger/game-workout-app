@@ -1,28 +1,17 @@
-$app-primary: #ff9800;
-$app-primary-light: #ffc947;
-$app-primary-dark: #c66900;
+$app-primary: #FF652F;
+$app-primary-hover: #c66900;
+$app-primary-dark: #26418f;
 $app-primary-text: #fff;
 
-$app-secondary: #5c6bc0;
-$app-secondary-light: #8e99f3;
-$app-secondary-dark: #26418f;
-$app-secondary-text: #fff;
+$app-background: #1C3334;
 
 $app-error: #cf6679;
 
 $app-text:  rgba(255, 255, 255, 0.6);
 $app-text-bright: rgba(255, 255, 255, 0.87);
 
-$app-form: #fff;
-$app-form-light: #eaeaea;
-$app-form-dark: #f0f4f7;
-$app-form-text: #000;
+$app-form: #272727;
+$app-form-hover: #404040;
+$app-form-input: #f0f4f7;
+$app-form-input-text: #404040;
 $app-form-input-shadow: inset 0 0 1px #aaa;
-
-/*
-$app-form: #1b202a;
-$app-form-light: #222936;
-$app-form-dark: #1c1f2c;
-$app-form-text: #fff;
-$app-form-input-shadow: inset 0 0 3px #000;
-*/

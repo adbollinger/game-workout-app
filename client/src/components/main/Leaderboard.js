@@ -74,6 +74,7 @@ class Leaderboard extends Component {
                             {users && users.loading && <em> Loading </em>}
                             {users &&
                                 <DataTable
+                                    theme="dark"
                                     title="Remaining workouts"
                                     columns={this.getColumns()}
                                     fixedHeader={users.length > 20}

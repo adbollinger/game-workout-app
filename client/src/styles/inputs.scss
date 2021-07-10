@@ -1,8 +1,8 @@
 @import "variables";
 
 @mixin input-style {
-    background-color: $app-form-dark;
-    color: $app-form-text;
+    background-color: $app-form-input;
+    color: $app-form-input-text;
     border: none;
     -webkit-box-shadow: $app-form-input-shadow;
     -moz-box-shadow: $app-form-input-shadow;
@@ -12,16 +12,16 @@
     &:-webkit-autofill,
     &:-webkit-autofill:focus,
     &:active {
-        background-color: $app-form-dark;
-        color: $app-form-text;
+        background-color: $app-form-input;
+        color: $app-form-input-text;
     }
 }
 
 .input-group {
     .input-group-prepend span,
     .form-control[readonly] {
-        background-color: $app-form-dark;
-        color: $app-form-text;
+        background-color: $app-form-input;
+        color: $app-form-input-text;
         border: none;
     }
 
@@ -43,7 +43,7 @@
 }
 
 .custom-control label {
-    color: $app-form-text;
+    color: $app-text-bright;
 }
 
 .form-group input {
