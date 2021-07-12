@@ -45,7 +45,7 @@ class TabView extends Component {
         const totalValues = state.currentTotalValues;
         const newTotalValues = nextProps.userReducer.user;
 
-        if (newTotalValues != null && newTotalValues != undefined && newTotalValues !== totalValues) {
+        if (newTotalValues !== null && newTotalValues !== undefined && newTotalValues !== totalValues) {
             const newValues = {
                 pushups: newTotalValues.pushups,
                 situps: newTotalValues.situps,

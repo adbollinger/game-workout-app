@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { lolRouter } from "./src/apis/LoL";
+import { lolRouter } from "./src/apis/lol";
 import { tftRouter } from "./src/apis/tft";
 // import mongoose from "mongoose";
 
