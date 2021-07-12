@@ -3,9 +3,10 @@ import cors from "cors";
 import { userRouter } from "./src/apis/user";
 import { authRouter } from "./src/apis/auth";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4100;
 
 app.use(express.json());
 
@@ -17,6 +18,8 @@ app.use(cors({
     ],
     credentials: true
 }));
+
+app.use(cookieParser());
 
 const MongoURI = process.env.MongoURI || '';
 
@@ -30,7 +33,7 @@ connection.once('open', function () {
     console.log("MongoDB database connection established successfully");
 })
 
-app.use("/api/user", userRouter);
+app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
 
 app.listen(port, function () {
