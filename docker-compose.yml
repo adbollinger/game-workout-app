@@ -35,6 +35,36 @@ services:
             - mongo
         command: npm run start
 
+    user:
+        build: ./user_service
+        container_name: gw_user
+        restart: always
+        environment:
+            - MongoURI=mongodb://mongo:27017/user
+            - JWTSecret=${JWTSecret}
+        volumes: 
+            - ./user_service:/src/app
+        ports: 
+            - "4100:4100"
+        depends_on: 
+            - mongo
+        command: npm run server
+
+    workout:
+        build: ./workout_service
+        container_name: gw_workout
+        restart: always
+        environment:
+            - MongoURI=mongodb://mongo:27017/workout
+            - JWTSecret=${JWTSecret}
+        volumes: 
+            - ./workout_service:/src/app
+        ports: 
+            - "4200:4200"
+        depends_on: 
+            - mongo
+        command: npm run server
+
     riot:
         build: ./riot_service
         container_name: gw_riot
