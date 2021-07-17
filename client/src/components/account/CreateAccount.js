@@ -1,85 +1,68 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { userActions } from '../../_actions';
-import { connect } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import { withRouter } from 'react-router-dom';
 
-class CreateAccount extends Component {
+const CreateAccount = (props) => {
+    const dispatch = useDispatch()
 
-    constructor() {
-        super();
-        this.state = {
-            name: '',
-            password: '',
-            submit: false
-        };
-    }
+    const [name, setName] = useState('');
+    const [password, setPassword] = useState('');
+    const [submitted, setSubmitted] = useState(false);
 
-    handleSubmit = (e) => {
+    const loading = useSelector(state => state.userReducer.loading);
+    const user = useSelector(state => state.userReducer.user);
+
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const user = {
-            name: this.state.name,
-            password: this.state.password,
+            name,
+            password,
             pushups: 0,
             situps: 0,
             squats: 0,
         };
 
-        this.setState({
-            submit: true
-        })
+        setSubmitted(true);
 
-        this.props.addUser(user);
+        dispatch(userActions.addUser(user));
     }
 
-    handleInputChange = (e) => {
-        const target = e.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
+    const returnHome = () => {
+        props.history.push('/');
     }
+    
+    return (
+        <div>
+            <Button onClick={returnHome} className="mb-3">Go back</Button>
+            <Form onSubmit={handleSubmit} className="card-view">
+                <Form.Group controlId="name">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" name="name" placeholder="Enter name" value={name} onChange={(e) => setName(e.target.value)} />
+                </Form.Group>
 
-    render() {
-        return (
-            <div>
-                <Form onSubmit={this.handleSubmit} className="card-view">
-                    <Form.Group controlId="name">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="text" name="name" placeholder="Enter name" value={this.state.name} onChange={this.handleInputChange} />
-                    </Form.Group>
+                <Form.Group controlId="password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                </Form.Group>
 
-                    <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handleInputChange} />
-                    </Form.Group>
+                <Button variant="primary" type="submit" onSubmit={handleSubmit}>
+                    Submit
+                </Button>
 
-                    <Button variant="primary" type="submit" onSubmit={this.handleSubmit}>
-                        Submit
-                    </Button>
-                    { this.state.submit && !this.users && (this.users && !this.users.loading) &&
-                        <Form.Text className="text-muted">
-                            There was an issue creating your account.
-                        </Form.Text>
-                    }
-                </Form>
-            </div>
-        )
-    }
+                { submitted && !user && !loading &&
+                    <Form.Text className="text-muted">
+                        There was an issue creating your account.
+                    </Form.Text>
+                }
+            </Form>
+        </div>
+    )
 }
 
-const mapStateToProps = (state) => {
-    const { userReducer, authReducer } = state;
-    const { user } = authReducer;
-    return { userReducer, user }
-};
-
-const actions = {
-    addUser: userActions.addUser
-}
-
-export default connect(mapStateToProps, actions)(CreateAccount);
+export default withRouter(CreateAccount);

@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from "react-redux";
 
 import store from "./store.js";
-import Account from './components/account/Account.js';
 import HomePage from './components/HomePage';
 import MainRouter from './components/main/MainRouter';
+import Account from './components/account/Account';
 
 function App() {
   return (
