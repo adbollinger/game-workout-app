@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
@@ -10,113 +9,76 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import WorkoutModal from './WorkoutModal';
 import { authActions, userActions } from '../../_actions';
 import { withRouter } from 'react-router-dom';
-import { compose } from 'redux';
 
-class Navbar extends Component {
-    static propTypes = {
-        prop: PropTypes.object
-    }
+const Navbar = (props) => {
+    const dispatch = useDispatch();
 
-    constructor() {
-        super();
-        this.state = {
-            initialized: false,
-            showWorkoutModal: false
+    const [showWorkoutModal, setShowWorkoutModal] = useState('');
+    const [initialized, setInitialized] = useState(false);
+
+    const isLoggedIn = useSelector(state => state.authReducer.loggedIn);
+    const loading = useSelector(state => state.authReducer.loading);
+    const user = useSelector(state => state.authReducer.user);
+    const updatedUser = useSelector(state => state.userReducer.user);
+
+    useEffect(() => {
+        dispatch(authActions.getUser());
+
+        if (initialized && !loading && !isLoggedIn) {
+            props.history.push('/account/login');
         }
+
+        setInitialized(true);
+    }, [isLoggedIn]);
+
+    const handleWorkoutModalClose = () => {
+        setShowWorkoutModal(false);
     }
 
-    componentDidMount() {
-        this.props.getUser();
-
-        this.setState({
-            initialized: true
-        });
-    }
-
-    handleWorkoutModalClose() {
-        this.setState({
-            showWorkoutModal: false,
-            results: null
-        });
-    }
-
-    handleWorkoutModalSubmit(results) {
-        const { user } = this.props;
-        const { name } = user;
-
+    const handleWorkoutModalSubmit = (results) => {
         const values = {
             pushups: -results.pushups,
             situps: -results.situps,
             squats: -results.squats,
-            name
+            name: user.name
         };
 
-        this.props.updateWorkout(values);
+        dispatch(userActions.updateWorkout(values));
     }
 
-    handleLogout() {
-        this.props.logout();
+    const handleLogout = () => {
+        dispatch(authActions.logout());
     }
 
-    renderRightSide() {
-        if (this.state.initialized && !this.props.loading && !this.props.loggedIn) {
-            this.props.history.push('/account/login');
-        } else {
-            return (
-                <React.Fragment>
-                    <NavDropdown title={this.props.user.name || ''} id="nav-dropdown">
-                        <NavDropdown.Item eventKey="logout">Log out</NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Item>
-                        <Button className="mr-3" onClick={() => { this.setState({ showWorkoutModal: true }) }}>Submit workout</Button>
-                    </Nav.Item>
-                </React.Fragment>
-            )
-        }
-    }
-
-    handleSelect(key) {
+    const handleSelect = (key) => {
         if (key === 'logout') {
-            this.handleLogout();
+            handleLogout();
         }
     }
 
-    render() {
-        return (
-            <div>
-                <Nav
-                    className="App-navbar align-content-center"
-                    activeKey="active"
-                    onSelect={(selectedKey) => { this.handleSelect(selectedKey) }}
-                >
-                    <Nav.Item>
-                        <Nav.Link href="/home">Workouts</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/home/leaderboard">Leaderboard</Nav.Link>
-                    </Nav.Item>
-                    <div className="flex-grow-1"></div>
-                    {this.renderRightSide()}
-                </Nav>
-                <WorkoutModal showModal={this.state.showWorkoutModal} results={this.props.userReducer.user} handleClose={this.handleWorkoutModalClose.bind(this)} handleSubmit={this.handleWorkoutModalSubmit.bind(this)} />
-            </div>
-        )
-    }
+    return (
+        <div>
+            <Nav
+                className="App-navbar align-content-center"
+                activeKey="active"
+                onSelect={(selectedKey) => handleSelect(selectedKey)}
+            >
+                <Nav.Item>
+                    <Nav.Link href="/home">Workouts</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link href="/home/leaderboard">Leaderboard</Nav.Link>
+                </Nav.Item>
+                <div className="flex-grow-1"></div>
+                <NavDropdown title={user.name || ''} id="nav-dropdown">
+                        <NavDropdown.Item eventKey="logout">Log out</NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Item>
+                    <Button className="mr-3" onClick={() => setShowWorkoutModal(true)}>Submit workout</Button>
+                </Nav.Item>
+            </Nav>
+            <WorkoutModal showModal={showWorkoutModal} results={updatedUser} handleClose={handleWorkoutModalClose} handleSubmit={handleWorkoutModalSubmit} />
+        </div>
+    )
 }
-
-const mapStateToProps = (state) => {
-    const { userReducer, authReducer } = state;
-    const { user, loading, loggedIn } = authReducer;
-    return { userReducer, user, loading, loggedIn }
-};
-
-const actions = {
-    getUser: authActions.getUser,
-    logout: authActions.logout,
-    updateWorkout: userActions.updateWorkout
-}
-
-export default compose(
-    withRouter,
-    connect(mapStateToProps, actions)
-)(Navbar);
+export default withRouter(Navbar);

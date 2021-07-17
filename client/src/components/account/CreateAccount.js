@@ -32,14 +32,10 @@ const CreateAccount = (props) => {
 
         dispatch(userActions.addUser(user));
     }
-
-    const returnHome = () => {
-        props.history.push('/');
-    }
     
     return (
-        <div>
-            <Button onClick={returnHome} className="mb-3">Go back</Button>
+        <div id="account_page">
+            <Button onClick={() => props.history.push('/')} className="back-button">Go back</Button>
             <Form onSubmit={handleSubmit} className="card-view">
                 <Form.Group controlId="name">
                     <Form.Label>Username</Form.Label>
