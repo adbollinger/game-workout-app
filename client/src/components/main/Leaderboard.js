@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import { userActions } from '../../_actions';
 
 import DataTable from 'react-data-table-component';
 
-class Leaderboard extends Component {
-    static propTypes = {
-        getUsers: PropTypes.func.isRequired,
-        userReducer: PropTypes.object.isRequired
-    }
+const Leaderboard = () => {
+    const dispatch = useDispatch();
 
-    componentDidMount() {
-        this.props.getUsers();
-    }
+    const users = useSelector(state => state.userReducer.users);
+    const loading = useSelector(state => state.userReducer.loading);
 
-    getColumns() {
+    useEffect(() => {
+        dispatch(userActions.getUsers());
+    }, []);
+
+    const getColumns = () => {
         return [
             {
                 name: "Name",
@@ -45,13 +44,7 @@ class Leaderboard extends Component {
         ];
     }
 
-    getHeader() {
-        return {
-            fixedHeader: true
-        }
-    }
-
-    getData(users) {
+    const getData = (users) => {
         const data = [];
 
         users.forEach(user => {
@@ -64,41 +57,27 @@ class Leaderboard extends Component {
         return data;
     }
 
-    render() {
-        const { users } = this.props.userReducer;
-        return (
-            <div>
-                <div className="users">
-                    {
-                        <React.Fragment>
-                            {users && users.loading && <em> Loading </em>}
-                            {users &&
-                                <DataTable
-                                    theme="dark"
-                                    title="Remaining workouts"
-                                    columns={this.getColumns()}
-                                    fixedHeader={users.length > 20}
-                                    data={this.getData(users)}
-                                    defaultSortFieldId={5}
-                                    defaultSortAsc={false}
-                                />
-                            }
-                        </React.Fragment>
-                    }
-                </div>
+    return (
+        <div>
+            <div className="users">
+                {
+                    <React.Fragment>
+                        {!users && loading && <em> Loading </em>}
+                        {users &&
+                            <DataTable
+                                theme="dark"
+                                title="Remaining workouts"
+                                columns={getColumns()}
+                                fixedHeader={users.length > 20}
+                                data={getData(users)}
+                                defaultSortFieldId={5}
+                                defaultSortAsc={false}
+                            />
+                        }
+                    </React.Fragment>
+                }
             </div>
-        )
-    }
+        </div>
+    )
 }
-
-const mapStateToProps = (state) => {
-    const { userReducer, authReducer } = state;
-    const { user } = authReducer;
-    return { userReducer, user }
-};
-
-const actions = {
-    getUsers: userActions.getUsers
-}
-
-export default connect(mapStateToProps, actions)(Leaderboard);
+export default Leaderboard;

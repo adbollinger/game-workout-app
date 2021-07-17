@@ -13,13 +13,12 @@ const Login = (props) => {
     const [name, setName] = useState('');
     const [password, setPassword] = useState('');
 
-    const loading = useSelector(state => state.userReducer.loading);
     const isLoggedIn = useSelector(state => state.authReducer.loggedIn);
 
     useEffect(() => {
         dispatch(authActions.getUser());
 
-        if (!loading && isLoggedIn) {
+        if (isLoggedIn) {
             props.history.push('/home');
         }
     }, [isLoggedIn]);
@@ -36,7 +35,8 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div id="account_page">
+            <Button onClick={() => props.history.push('/')} className="back-button">Go back</Button>
             <h1>Login</h1>
             <Form onSubmit={handleSubmit} className="card-view">
                 <InputGroup className="mb-2">
