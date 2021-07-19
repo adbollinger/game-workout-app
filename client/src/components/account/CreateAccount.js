@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { userActions } from '../../_actions';
+import React, { useState, useEffect } from 'react';
+import { authActions, userActions } from '../../_actions';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,6 +16,18 @@ const CreateAccount = (props) => {
 
     const loading = useSelector(state => state.userReducer.loading);
     const user = useSelector(state => state.userReducer.user);
+    const isLoggedIn = useSelector(state => state.authReducer.loggedIn);
+
+    useEffect(() => {
+        if (user) {
+            console.log(user);
+            dispatch(authActions.login(name, password));
+        }
+
+        if (isLoggedIn) {
+            props.history.push('/home');
+        }
+    }, [user, isLoggedIn]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,7 +44,7 @@ const CreateAccount = (props) => {
 
         dispatch(userActions.addUser(user));
     }
-    
+
     return (
         <div id="account_page">
             <Button onClick={() => props.history.push('/')} className="back-button">Go back</Button>
