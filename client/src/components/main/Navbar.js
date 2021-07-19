@@ -22,14 +22,16 @@ const Navbar = (props) => {
     const updatedUser = useSelector(state => state.userReducer.user);
 
     useEffect(() => {
-        dispatch(authActions.getUser());
+        if (!initialized) {
+            dispatch(authActions.getUser());
+        }
 
         if (initialized && !loading && !isLoggedIn) {
             props.history.push('/account/login');
         }
 
         setInitialized(true);
-    }, [isLoggedIn]);
+    }, [isLoggedIn, loading]);
 
     const handleWorkoutModalClose = () => {
         setShowWorkoutModal(false);
