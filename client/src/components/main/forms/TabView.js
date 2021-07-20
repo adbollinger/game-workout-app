@@ -1,105 +1,89 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { userActions } from '../../../_actions';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { authActions, userActions } from '../../../_actions';
 import Results from './Results';
 
-class TabView extends Component {
+const TabView = (props) => {
+    const dispatch = useDispatch();
 
-    constructor(props) {
-        super(props);
+    const authUser = useSelector(state => state.authReducer.user);
+    const user = useSelector(state => state.userReducer.user);
 
-        this.state = {
-            showForm: true,
-            results: {
-                pushups: 0,
-                situps: 0,
-                squats: 0
-            },
-            currentTotalValues: {
-            },
-            totalValues: {
-                pushups: 0,
-                situps: 0,
-                squats: 0
-            }
-        };
-    }
+    const [inputs, setInputs] = useState({
+        showForm: true,
+        results: {
+            pushups: 0,
+            situps: 0,
+            squats: 0
+        },
+        totalValues: {
+            pushups: 0,
+            situps: 0,
+            squats: 0
+        }
+    });
 
-    handleFormSubmit(results) {
-        this.setState({ showForm: false });
-        const { user } = this.props;
+    const [initialized, setInitialized] = useState(false)
 
+    useEffect(() => {
+        if (!initialized) {
+            dispatch(authActions.getUser());
+        }
+
+        if (user) {
+            setInputs(inputs => ({
+                ...inputs,
+                totalValues: {
+                    pushups: user.pushups,
+                    situps: user.situps,
+                    squats: user.squats
+                }
+            }));
+        }
+
+        setInitialized(true);
+    }, [user]);
+
+    const handleFormSubmit = (results) => {
         const values = {
             ...results,
-            name: user.name
+            name: authUser.name
         };
 
-        this.props.updateWorkout(values);
+        dispatch(userActions.updateWorkout(values));
 
-        this.setState({
-            results: results
-        });
+        setInputs(inputs => ({
+            ...inputs,
+            showForm: false,
+            results
+        }));
     }
 
-    static getDerivedStateFromProps(nextProps, state) {
-        const totalValues = state.currentTotalValues;
-        const newTotalValues = nextProps.userReducer.user;
+    const handleResetForm = () => {
+        setInputs(inputs => ({
+            ...inputs,
+            showForm: true
+        }));
+    }
 
-        if (newTotalValues !== null && newTotalValues !== undefined && newTotalValues !== totalValues) {
-            const newValues = {
-                pushups: newTotalValues.pushups,
-                situps: newTotalValues.situps,
-                squats: newTotalValues.squats
-            }
-            return {
-                ...state,
-                totalValues: newValues,
-                currentTotalValues: newValues,
-            };
+    const form = React.Children.map(props.form, form => {
+        const props = { onFormSubmit: handleFormSubmit };
+
+        if (React.isValidElement(form)) {
+            return React.cloneElement(form, props);
         }
-    }
-
-    handleResetForm() {
-        this.setState({ showForm: true });
-    }
-
-    render() {
-        const showForm = this.state.showForm;
-
-        const form = React.Children.map(this.props.form, form => {
-            const props = { onFormSubmit: this.handleFormSubmit.bind(this) };
-
-            if (React.isValidElement(form)) {
-                return React.cloneElement(form, props);
+        return form;
+    });
+    
+    return (
+        <div>
+            {
+                inputs.showForm ? form :
+                    <Results values={inputs.results} totalValues={inputs.totalValues} onReset={handleResetForm}></Results>
             }
-            return form;
-
-        });
-
-        return (
-            <div>
-                <div>
-                    {showForm ? form : null}
-                </div>
-                <div>
-                    {
-                        showForm ? null :
-                            <Results values={this.state.results} totalValues={this.state.totalValues} onReset={this.handleResetForm.bind(this)}></Results>
-                    }
-                </div>
-            </div>
-        )
-    }
+        </div>
+    )
+    
 }
 
-const mapStateToProps = (state) => {
-    const { userReducer, authReducer } = state;
-    const { user } = authReducer;
-    return { userReducer, user }
-};
-
-const actions = {
-    updateWorkout: userActions.updateWorkout
-}
-
-export default connect(mapStateToProps, actions)(TabView);
+export default TabView;
