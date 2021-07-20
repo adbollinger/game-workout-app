@@ -20,7 +20,6 @@ const CreateAccount = (props) => {
 
     useEffect(() => {
         if (user) {
-            console.log(user);
             dispatch(authActions.login(name, password));
         }
 
