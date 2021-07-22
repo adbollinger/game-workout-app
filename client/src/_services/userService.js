@@ -3,11 +3,10 @@ import { authService } from ".";
 export const userService = {
     getAll,
     getById,
-    addUser,
-    updateWorkout
+    addUser
 };
 
-const baseUrl = 'http://localhost:4000/api';
+const baseUrl = 'http://localhost:4100/api/users';
 
 function getAll() {
     const requestOptions = {
@@ -16,7 +15,7 @@ function getAll() {
         credentials: 'include' 
     };
 
-    return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}`, requestOptions).then(handleResponse);
 }
 
 function getById(id) {
@@ -26,7 +25,7 @@ function getById(id) {
         credentials: 'include'
     };
 
-    return fetch(`${baseUrl}/users/${id}`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}/${id}`, requestOptions).then(handleResponse);
 }
 
 function addUser(user) {
@@ -37,18 +36,7 @@ function addUser(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`${baseUrl}/users`, requestOptions).then(handleResponse);
-}
-
-function updateWorkout(user) {
-    const requestOptions = {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`${baseUrl}/workouts`, requestOptions).then(handleResponse);
+    return fetch(`${baseUrl}`, requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {

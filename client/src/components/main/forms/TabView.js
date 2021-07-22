@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { authActions, userActions } from '../../../_actions';
+import { workoutActions } from '../../../_actions';
 import Results from './Results';
 
 const TabView = (props) => {
     const dispatch = useDispatch();
 
-    const authUser = useSelector(state => state.authReducer.user);
-    const user = useSelector(state => state.userReducer.user);
+    const workout = useSelector(state => state.workoutReducer.workout);
 
     const [inputs, setInputs] = useState({
         showForm: true,
@@ -23,34 +22,21 @@ const TabView = (props) => {
         }
     });
 
-    const [initialized, setInitialized] = useState(false)
-
     useEffect(() => {
-        if (!initialized) {
-            dispatch(authActions.getUser());
-        }
-
-        if (user) {
+        if (workout) {
             setInputs(inputs => ({
                 ...inputs,
                 totalValues: {
-                    pushups: user.pushups,
-                    situps: user.situps,
-                    squats: user.squats
+                    pushups: workout.pushups,
+                    situps: workout.situps,
+                    squats: workout.squats
                 }
             }));
         }
-
-        setInitialized(true);
-    }, [user]);
+    }, [workout]);
 
     const handleFormSubmit = (results) => {
-        const values = {
-            ...results,
-            name: authUser.name
-        };
-
-        dispatch(userActions.updateWorkout(values));
+        dispatch(workoutActions.updateWorkout(results));
 
         setInputs(inputs => ({
             ...inputs,
