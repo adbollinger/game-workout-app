@@ -4,7 +4,7 @@ export const authService = {
     getUser
 };
 
-const baseUrl = 'http://localhost:4000/api/auth';
+const baseUrl = 'http://localhost:4100/api/auth';
 
 function login(name, password) {
     const requestOptions = {
