@@ -5,9 +5,10 @@ import WorkoutModel, { Workout } from "../models/workout";
 export const workoutRouter = express.Router();
 
 // @route UPDATE api/workouts
-// @desc Upsert workout
+// @desc Upsert workout for current user
 workoutRouter.patch('/', tokenAuth, (req: Request, res: Response) => {
-    const { name, pushups, situps, squats } = req.body;
+    const { payload, pushups, situps, squats } = req.body;
+    const { name } = payload;
 
     if (typeof name === 'undefined'
         || typeof pushups === 'undefined'
@@ -31,6 +32,19 @@ workoutRouter.patch('/', tokenAuth, (req: Request, res: Response) => {
 // @desc get workouts for a user
 workoutRouter.get('/:name', tokenAuth, (req: Request, res: Response) => {
     const { name } = req.params;
+
+    if (typeof name === 'undefined') {
+        return res.status(400).json({ msg: 'Error finding workout' });
+    }
+
+    WorkoutModel.findOne({ name })
+        .then(workout => res.json(workout));
+});
+
+// @route GET api/workouts
+// @desc get workouts for the current user
+workoutRouter.get('/', tokenAuth, (req: Request, res: Response) => {
+    const { name } = req.body.payload;
 
     if (typeof name === 'undefined') {
         return res.status(400).json({ msg: 'Error finding workout' });
