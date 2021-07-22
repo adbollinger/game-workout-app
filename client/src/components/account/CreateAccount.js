@@ -33,10 +33,7 @@ const CreateAccount = (props) => {
 
         const user = {
             name,
-            password,
-            pushups: 0,
-            situps: 0,
-            squats: 0,
+            password
         };
 
         setSubmitted(true);

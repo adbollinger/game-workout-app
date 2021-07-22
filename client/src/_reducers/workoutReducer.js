@@ -10,18 +10,18 @@ const initialState = {
 export default function workoutReducer(state = initialState, action) {
     switch (action.type) {
         // GET CURRENT USER
-        case workoutConstants.GET_USER_LOADING:
+        case workoutConstants.GET_USER_WORKOUT_LOADING:
             return {
                 ...state,
                 loading: true
             };
-        case workoutConstants.GET_USER_SUCCESS:
+        case workoutConstants.GET_USER_WORKOUT_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 workout: action.workout
             };
-        case workoutConstants.GET_USER_FAILURE:
+        case workoutConstants.GET_USER_WORKOUT_FAILURE:
             return {
                 ...state,
                 loading: false,

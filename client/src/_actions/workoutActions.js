@@ -19,9 +19,9 @@ function getCurrentUser() {
             );
     };
 
-    function request() { return { type: workoutConstants.GET_USER_LOADING } }
-    function success(workout) { return { type: workoutConstants.GET_USER_SUCCESS, workout } }
-    function failure(error) { return { type: workoutConstants.GET_USER_FAILURE, error } }
+    function request() { return { type: workoutConstants.GET_USER_WORKOUT_LOADING } }
+    function success(workout) { return { type: workoutConstants.GET_USER_WORKOUT_SUCCESS, workout } }
+    function failure(error) { return { type: workoutConstants.GET_USER_WORKOUT_FAILURE, error } }
 }
 
 function getById(id) {

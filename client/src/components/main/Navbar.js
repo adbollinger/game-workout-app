@@ -7,19 +7,19 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 
 
 import WorkoutModal from './WorkoutModal';
-import { authActions, userActions } from '../../_actions';
+import { authActions, workoutActions } from '../../_actions';
 import { withRouter } from 'react-router-dom';
 
 const Navbar = (props) => {
     const dispatch = useDispatch();
 
-    const [showWorkoutModal, setShowWorkoutModal] = useState('');
+    const [showWorkoutModal, setShowWorkoutModal] = useState(false);
     const [initialized, setInitialized] = useState(false);
 
     const isLoggedIn = useSelector(state => state.authReducer.loggedIn);
     const loading = useSelector(state => state.authReducer.loading);
     const user = useSelector(state => state.authReducer.user);
-    const updatedUser = useSelector(state => state.userReducer.user);
+    const workout = useSelector(state => state.workoutReducer.workout);
 
     useEffect(() => {
         if (!initialized) {
@@ -41,11 +41,10 @@ const Navbar = (props) => {
         const values = {
             pushups: -results.pushups,
             situps: -results.situps,
-            squats: -results.squats,
-            name: user.name
+            squats: -results.squats
         };
 
-        dispatch(userActions.updateWorkout(values));
+        dispatch(workoutActions.updateWorkout(values));
     }
 
     const handleLogout = () => {
@@ -79,7 +78,7 @@ const Navbar = (props) => {
                     <Button className="mr-3" onClick={() => setShowWorkoutModal(true)}>Submit workout</Button>
                 </Nav.Item>
             </Nav>
-            <WorkoutModal showModal={showWorkoutModal} results={updatedUser} handleClose={handleWorkoutModalClose} handleSubmit={handleWorkoutModalSubmit} />
+            <WorkoutModal showModal={showWorkoutModal} results={workout} handleClose={handleWorkoutModalClose} handleSubmit={handleWorkoutModalSubmit} />
         </div>
     )
 }

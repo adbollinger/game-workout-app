@@ -4,8 +4,7 @@ import { authService, userService } from "../_services"
 export const userActions = {
     getUser,
     getUsers,
-    addUser,
-    updateWorkout
+    addUser
 }
 
 function addUser(userRequest) {
@@ -58,20 +57,4 @@ function getUser(id) {
     function request() { return { type: userConstants.GET_USER_LOADING } }
     function success(user) { return { type: userConstants.GET_USER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.GET_USER_FAILURE, error } }
-}
-
-function updateWorkout(values) {
-    return dispatch => {
-        dispatch(request());
-
-        userService.updateWorkout(values)
-            .then(
-                user => dispatch(success(user)),
-                error => dispatch(failure(error.toString()))
-            );
-    };
-
-    function request() { return { type: userConstants.UPDATE_WORKOUT_LOADING } }
-    function success(user) { return { type: userConstants.UPDATE_WORKOUT_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.UPDATE_WORKOUT_FAILURE, error } }
 }
