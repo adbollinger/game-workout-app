@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { userActions } from '../../_actions';
+import { userActions, workoutActions } from '../../_actions';
 
 import DataTable from 'react-data-table-component';
 
@@ -9,10 +9,20 @@ const Leaderboard = () => {
 
     const users = useSelector(state => state.userReducer.users);
     const loading = useSelector(state => state.userReducer.loading);
+    const workouts = useSelector(state => state.workoutReducer.list);
 
     useEffect(() => {
-        dispatch(userActions.getUsers());
-    }, []);
+        if (!users || users.length == 0) {
+            dispatch(userActions.getUsers());
+        }
+
+        if (users && users.length > 0 && (!workouts || workouts.length == 0)) {
+            const request = {
+                names: users.map(x => x.name)
+            };
+            dispatch(workoutActions.getList(request));
+        }
+    }, [users, workouts]);
 
     const getColumns = () => {
         return [
@@ -62,14 +72,14 @@ const Leaderboard = () => {
             <div className="users">
                 {
                     <React.Fragment>
-                        {!users && loading && <em> Loading </em>}
-                        {users &&
+                        {(!users || !workouts) && loading && <em> Loading </em>}
+                        { workouts &&
                             <DataTable
                                 theme="dark"
                                 title="Remaining workouts"
                                 columns={getColumns()}
-                                fixedHeader={users.length > 20}
-                                data={getData(users)}
+                                fixedHeader={workouts.length > 20}
+                                data={getData(workouts)}
                                 defaultSortFieldId={5}
                                 defaultSortAsc={false}
                             />
