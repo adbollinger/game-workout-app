@@ -19,22 +19,7 @@ services:
         depends_on: 
             - server
         command: npm run start
-
-    server:
-        build: ./server
-        container_name: gw_server
-        restart: always
-        environment: 
-            - MongoURI=mongodb://mongo:27017/workouts
-            - JWTSecret=${JWTSecret}
-        volumes: 
-            - ./server:/src/app
-        ports: 
-            - "4000:4000"
-        depends_on: 
-            - mongo
-        command: npm run start
-
+   
     user:
         build: ./user_service
         container_name: gw_user
